@@ -79,6 +79,11 @@ class JoinMeetingParameters extends UserDataParameters
     private $joinViaHtml5;
 
     /**
+     * @var boolean
+     */
+    private $joinAsGuest;
+
+    /**
      * JoinMeetingParametersTest constructor.
      *
      * @param $meetingId
@@ -308,6 +313,25 @@ class JoinMeetingParameters extends UserDataParameters
     }
 
     /**
+     * @return boolean
+     */
+    public function isJoinAsGuest()
+    {
+        return $this->joinAsGuest;
+    }
+
+    /**
+     * @param  boolean               $joinAsGuest
+     * @return JoinMeetingParameters
+     */
+    public function setJoinAsGuest($joinAsGuest)
+    {
+        $this->joinAsGuest = $joinAsGuest;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getHTTPQuery()
@@ -323,6 +347,7 @@ class JoinMeetingParameters extends UserDataParameters
             'avatarURL'    => $this->avatarURL,
             'redirect'     => $this->redirect ? 'true' : 'false',
             'joinViaHtml5' => $this->joinViaHtml5 ? 'true' : 'false',
+            'guest'        => $this->joinAsGuest ? 'true' : 'false',
             'clientURL'    => $this->clientURL
         ];
         $this->buildUserData($queries);
