@@ -194,6 +194,11 @@ class CreateMeetingParameters extends MetaParameters
     private $freeJoin;
 
     /**
+     * @var boolean
+     */
+    private $requireModeratorApproval;
+
+    /**
      * CreateMeetingParameters constructor.
      *
      * @param $meetingId
@@ -870,6 +875,25 @@ class CreateMeetingParameters extends MetaParameters
     }
 
     /**
+     * @return bool
+     */
+    public function isModeratorApprovalRequired()
+    {
+        return $this->requireModeratorApproval;
+    }
+
+    /**
+     * @param  bool                    $requireModeratorApproval
+     * @return CreateMeetingParameters
+     */
+    public function setRequireModeratorApproval($requireModeratorApproval)
+    {
+        $this->requireModeratorApproval = $requireModeratorApproval;
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getPresentations()
@@ -961,6 +985,7 @@ class CreateMeetingParameters extends MetaParameters
             'lockSettingsLockOnJoin'             => $this->isLockSettingsLockOnJoin() ? 'true' : 'false',
             'lockSettingsLockOnJoinConfigurable' => $this->isLockSettingsLockOnJoinConfigurable() ? 'true' : 'false',
             'allowModsToUnmuteUsers'             => $this->isAllowModsToUnmuteUsers() ? 'true' : 'false',
+            'guestPolicy'                        => $this->isModeratorApprovalRequired() ? 'ASK_MODERATOR' : 'ALWAYS_ACCEPT'
         ];
 
         // Add breakout rooms parameters only if the meeting is a breakout room
